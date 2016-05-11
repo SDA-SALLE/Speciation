@@ -152,7 +152,7 @@ def speciation(archivespeciation, folder):
 			writespeciation(data, File, species)
 
 def testing():
-	folder1 = os.path.join('..','in', 'FE', '')
+	folder1 = os.path.join('..','in', 'PE', '')
 	folder2 = os.path.join('..', 'out', '')
 
 	listEmision = listaCSV(folder1)

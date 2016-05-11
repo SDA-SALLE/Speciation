@@ -8,11 +8,15 @@ import sys
 sys.path.append('core')
 from PMC import *
 from speciation import *
+from clear import *
+
+folderout = os.path.join('..', 'archives', 'out', '')
+clear(folderout)
 
 print 'Start Canteras'
 
 #Canteras
-archivespeciation = os.path.join ('..', 'archives', 'in', 'FE', 'CANT_SCP_PROF_PM25.xlsx')
+archivespeciation = os.path.join ('..', 'archives', 'in', 'PE', 'CANT_SCP_PROF_PM25.xlsx')
 folderCant = os.path.join('..','archives', 'in', 'Emitions', 'CANT', '')
 speciation(archivespeciation, folderCant)
 
@@ -22,7 +26,7 @@ brinding (folderout)
 print 'Start BLD'
 
 #BLD
-archivespeciation = os.path.join ('..', 'archives', 'in', 'FE', 'BLD_CONVP_SCP_PROF_PM25.xlsx')
+archivespeciation = os.path.join ('..', 'archives', 'in', 'PE', 'BLD_CONVP_SCP_PROF_PM25.xlsx')
 folderBLD = os.path.join('..','archives', 'in', 'Emitions', 'BLD', '')
 speciation(archivespeciation, folderBLD)
 
@@ -36,7 +40,7 @@ testingpmc(folderout)
 print 'Start CONVP'
 
 #CONVP
-archivespeciation = os.path.join ('..', 'archives', 'in', 'FE', 'BLD_CONVP_SCP_PROF_PM25.xlsx')
+archivespeciation = os.path.join ('..', 'archives', 'in', 'PE', 'BLD_CONVP_SCP_PROF_PM25.xlsx')
 folderCONVP = os.path.join('..','archives', 'in', 'Emitions', 'CONVP', '')
 speciation(archivespeciation, folderCONVP)
 
