@@ -29,13 +29,11 @@ print 'Start BLD'
 archivespeciation = os.path.join ('..', 'archives', 'in', 'PE', 'BLD_CONVP_SCP_PROF_PM25.xlsx')
 folderBLD = os.path.join('..','archives', 'in', 'Emitions', 'BLD', '')
 speciation(archivespeciation, folderBLD)
-
 folderout = os.path.join('..','archives', 'out', 'BLD', '')
-brinding (folderout)
-
 folderPMC = os.path.join('..','archives', 'in', 'PMC', 'BLD', '')
 pmc(folderPMC)
 testingpmc(folderout)
+brinding (folderout)
 
 print 'Start CONVP'
 
@@ -45,11 +43,10 @@ folderCONVP = os.path.join('..','archives', 'in', 'Emitions', 'CONVP', '')
 speciation(archivespeciation, folderCONVP)
 
 folderout = os.path.join('..','archives', 'out', 'CONVP', '')
-brinding (folderout)
-
 folderPMC = os.path.join('..','archives', 'in', 'PMC', 'CONVP', '')
 pmc(folderPMC)
 testingpmc(folderout)
+brinding (folderout)
 
 
 

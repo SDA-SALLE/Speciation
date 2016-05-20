@@ -322,7 +322,6 @@ def writevnp(data, noun):
 			csvsalida.write('\n')
 		csvsalida.close()
 
-
 def PMC(data, noun, folder):
 
 	if 'CONVP' in noun:

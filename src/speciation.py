@@ -212,16 +212,69 @@ def brinding(folder):
 	
 	listout = listaCSV(folder)
 	cont = 0
-	
-	csvsalida = open(folder + 'SPECIATION_PM25_Full.csv', 'w')
-	salida = csv.writer(csvsalida, delimiter=',')#, quoting=csv.QUOTE_ALL
-	salida.writerow(['ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'UNIT', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h', 'E24h'])
-	
-	for archiv in listout: 
-		archive = folder + archiv
-		matriz = convertCSVMatriz (archive)
-		for i in range(1, matriz.shape[0]):
-			salida.writerow(matriz[i,:])
+
+	if 'CANT' in folder: 
+		listWeekday = []
+		listSat = []
+		for lista in listout:
+			#print lista
+			if 'SAT' in lista: 
+				listSat.append(lista)
+			elif 'WEEKDAY' in lista: 
+				listWeekday.append(lista)
+
+		for TYP in ['SAT', 'WEEKDAY']:
+			csvsalida = open(folder + TYP + '_SPECIATION_Full.csv', 'w')
+			names = ['ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'UNIT', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h', 'E24h']
+			for x in range(0, len(names)): 
+				if x == 0: 
+					csvsalida.write(names[x])
+				else: 
+					csvsalida.write(',')
+					csvsalida.write(names[x])
+			csvsalida.write('\n')
+
+			if TYP == 'SAT': 
+				listout = listSat
+			elif TYP == 'WEEKDAY': 
+				listout = listWeekday
+			
+			for archiv in listout: 
+				archive = folder + archiv
+				matriz = convertCSVMatriz (archive)
+				for i in range(1, matriz.shape[0]):
+					for x in range(0, matriz.shape[1]):
+						if x == 0:
+							csvsalida.write(matriz[i][x])
+						else:
+							csvsalida.write(',')
+							csvsalida.write(matriz[i][x])
+					csvsalida.write('\n')
+
+	else:
+		csvsalida = open(folder + 'SPECIATION_PM25_Full.csv', 'w')
+		salida = csv.writer(csvsalida, delimiter=',')#, quoting=csv.QUOTE_ALL
+		names = ['ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'UNIT', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h', 'E24h']
+		for x in range(0, len(names)): 
+			if x == 0: 
+				csvsalida.write(names[x])
+			else: 
+				csvsalida.write(',')
+				csvsalida.write(names[x])
+		csvsalida.write('\n')
+		
+		for archiv in listout: 
+			archive = folder + archiv
+			matriz = convertCSVMatriz (archive)
+			for i in range(1, matriz.shape[0]):
+				for x in range(0, matriz.shape[1]):
+					if x == 0:
+						csvsalida.write(matriz[i][x])
+					else:
+						csvsalida.write(',')
+						csvsalida.write(matriz[i][x])
+				csvsalida.write('\n')
+				#salida.writerow(matriz[i,:])
 
 
 
