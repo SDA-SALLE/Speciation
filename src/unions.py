@@ -45,7 +45,7 @@ def unions(identy):
 		listHabilTM = []
 		listNHabilTM = []
 
-		folder = os.path.join('..', 'archives', 'in', 'unions', '')
+		folder = os.path.join('..', 'data', 'in', 'unions', '')
 		listout = listaCSV(folder)
 		#print listout
 		
@@ -72,9 +72,8 @@ def unions(identy):
 		listHabil = [listHabilPrincipal, listHabilTM, listHabilSecundary]
 		listNHabil = [listNHabilPrincipal, listNHabilTM, listNHabilSecundary]
 		
-		#print listNHabil
 
-		foldersave = os.path.join('..', 'archives', 'out', 'unions', '')
+		foldersave = os.path.join('..', 'data', 'out', 'unions', '')
 		for lista in listNHabil:
 
 			if 'Principal' in lista[0]:
@@ -126,8 +125,8 @@ def unions(identy):
 			matriz = None
 
 	elif identy == 'VNP':
-		folder = os.path.join('..', 'archives', 'in', 'unions', '')
-		foldersave = os.path.join('..', 'archives', 'out', 'unions', '')
+		folder = os.path.join('..', 'data', 'in', 'unions', '')
+		foldersave = os.path.join('..', 'data', 'out', 'unions', '')
 		listout = listaCSV(folder)
 		listIndustrial = []
 		listPublic = []
@@ -176,7 +175,7 @@ def unions(identy):
 		listHabil = []
 		listNHabil = []
 
-		folder = os.path.join('..', 'archives', 'in', 'unions', '')
+		folder = os.path.join('..', 'data', 'in', 'unions', '')
 		listout = listaCSV(folder)
 		
 		for out in listout:
@@ -186,7 +185,7 @@ def unions(identy):
 			elif 'EH' in out or 'HABIL' in out or '_Habil' in out:
 				listHabil.append(out)
 
-		foldersave = os.path.join('..', 'archives', 'out', 'unions', '')
+		foldersave = os.path.join('..', 'data', 'out', 'unions', '')
 		
 		csvsalida = open(foldersave + 'NHabil_Full.csv', 'w')
 		names = ['ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'UNIT', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h', 'E24h']
@@ -333,14 +332,20 @@ def final(Archive):
 
 
 
-folder = os.path.join('..', 'archives', 'out', 'unions', '')
+folder = os.path.join('..', 'data', 'out', 'unions', '')
 clear(folder)
+
+print 'Write archives unions'
+print 'If Mobiles write, MOB'
+
+
+user = raw_input('Insert option: ')
 #unions('VP')
 #total('VP')
 
 unions('moviles')
 
-folder = os.path.join('..', 'archives', 'out', 'unions', '')
+folder = os.path.join('..', 'data', 'out', 'unions', '')
 lista = listaCSV(folder)
 for archiv in lista:
 	archive = folder + archiv
