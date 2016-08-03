@@ -45,7 +45,7 @@ def unions(identy):
 		listHabilTM = []
 		listNHabilTM = []
 
-		folder = os.path.join('..', 'archives', 'in', 'unions', '')
+		folder = os.path.join('..', 'data', 'in', 'unions', '')
 		listout = listaCSV(folder)
 		#print listout
 		
@@ -72,9 +72,8 @@ def unions(identy):
 		listHabil = [listHabilPrincipal, listHabilTM, listHabilSecundary]
 		listNHabil = [listNHabilPrincipal, listNHabilTM, listNHabilSecundary]
 		
-		#print listNHabil
 
-		foldersave = os.path.join('..', 'archives', 'out', 'unions', '')
+		foldersave = os.path.join('..', 'data', 'out', 'unions', '')
 		for lista in listNHabil:
 
 			if 'Principal' in lista[0]:
@@ -86,19 +85,19 @@ def unions(identy):
 
 			salida = csv.writer(csvsalida, delimiter=',')
 			salida.writerow(['ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'UNIT', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h', 'E24h'])
+			for archiv in lista:
+				archive = folder + archiv
+				matriz = convertCSVMatriz (archive)
+				for i in range(1, matriz.shape[0]):
+					for x in range(0, matriz.shape[1]):
+						if x == 0:
+							csvsalida.write(matriz[i][x])
+						else:
+							csvsalida.write(',')
+							csvsalida.write(matriz[i][x])
+					csvsalida.write('\n')
 
-			archive = folder + archiv
-			matriz = convertCSVMatriz (archive)
-			for i in range(1, matriz.shape[0]):
-				for x in range(0, matriz.shape[1]):
-					if x == 0:
-						csvsalida.write(matriz[i][x])
-					else:
-						csvsalida.write(',')
-						csvsalida.write(matriz[i][x])
-				csvsalida.write('\n')
-
-			matriz = None
+				matriz = None
 
 		for lista in listHabil:
 			if 'Principal' in lista[0]:
@@ -110,24 +109,24 @@ def unions(identy):
 
 			salida = csv.writer(csvsalida, delimiter=',')
 			salida.writerow(['ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'UNIT', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h', 'E24h'])
-			
-			archive = folder + archiv
-			matriz = convertCSVMatriz (archive)
-			for i in range(1, matriz.shape[0]):
-				for x in range(0, matriz.shape[1]):
-					if x == 0:
-						csvsalida.write(matriz[i][x])
-					else:
-						csvsalida.write(',')
-						csvsalida.write(matriz[i][x])
-				csvsalida.write('\n')
-				#salida.writerow(matriz[i,:])
+			for archiv in lista:
+				archive = folder + archiv
+				matriz = convertCSVMatriz (archive)
+				for i in range(1, matriz.shape[0]):
+					for x in range(0, matriz.shape[1]):
+						if x == 0:
+							csvsalida.write(matriz[i][x])
+						else:
+							csvsalida.write(',')
+							csvsalida.write(matriz[i][x])
+					csvsalida.write('\n')
+					#salida.writerow(matriz[i,:])
 
-			matriz = None
+				matriz = None
 
 	elif identy == 'VNP':
-		folder = os.path.join('..', 'archives', 'in', 'unions', '')
-		foldersave = os.path.join('..', 'archives', 'out', 'unions', '')
+		folder = os.path.join('..', 'data', 'in', 'unions', '')
+		foldersave = os.path.join('..', 'data', 'out', 'unions', '')
 		listout = listaCSV(folder)
 		listIndustrial = []
 		listPublic = []
@@ -172,11 +171,11 @@ def unions(identy):
 				csvsalida.write('\n')
 				#salida.writerow(matriz[i,:])
 
-	elif identy == 'moviles':
+	elif identy == 'MOB':
 		listHabil = []
 		listNHabil = []
 
-		folder = os.path.join('..', 'archives', 'in', 'unions', '')
+		folder = os.path.join('..', 'data', 'in', 'unions', '')
 		listout = listaCSV(folder)
 		
 		for out in listout:
@@ -186,7 +185,7 @@ def unions(identy):
 			elif 'EH' in out or 'HABIL' in out or '_Habil' in out:
 				listHabil.append(out)
 
-		foldersave = os.path.join('..', 'archives', 'out', 'unions', '')
+		foldersave = os.path.join('..', 'data', 'out', 'unions', '')
 		
 		csvsalida = open(foldersave + 'NHabil_Full.csv', 'w')
 		names = ['ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'UNIT', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h', 'E24h']
@@ -234,6 +233,70 @@ def unions(identy):
 
 			matriz = None
 		csvsalida.close()
+
+	elif identy == 'COM':
+		listHabil = []
+		listNHabil = []
+
+		folder = os.path.join('..', 'data', 'in', 'unions', '')
+		listout = listaCSV(folder)
+		
+		for out in listout:
+
+			if 'ENH' in out or 'NHABIL' in out or '_NHabil' in out:
+				listNHabil.append(out)
+			elif 'EH' in out or 'HABIL' in out or '_Habil' in out:
+				listHabil.append(out)
+
+		foldersave = os.path.join('..', 'data', 'out', 'unions', '')
+		
+		csvsalida = open(foldersave + 'NHabil_Full.csv', 'w')
+		names = ['ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'UNIT', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h', 'E24h']
+		for name in names:
+			if name == 'ROW':
+				csvsalida.write(name)
+			else:
+				csvsalida.write(',')
+				csvsalida.write(name)
+		csvsalida.write('\n')
+		for lista in listNHabil:
+			archive = folder + lista
+			matriz = convertCSVMatriz (archive)
+			for i in range(1, matriz.shape[0]):
+				for x in range(0, matriz.shape[1]):
+					if x == 0:
+						csvsalida.write(matriz[i][x])
+					else:
+						csvsalida.write(',')
+						csvsalida.write(matriz[i][x])
+				csvsalida.write('\n')
+			matriz = None
+		csvsalida.close()
+
+		csvsalida = open(foldersave + 'Habil_Full.csv', 'w')
+		for name in names:
+			if name == 'ROW':
+				csvsalida.write(name)
+			else:
+				csvsalida.write(',')
+				csvsalida.write(name)
+		csvsalida.write('\n')
+		for lista in listHabil:
+			archive = folder + lista
+			matriz = convertCSVMatriz (archive)
+			for i in range(1, matriz.shape[0]):
+				for x in range(0, matriz.shape[1]):
+					if x == 0:
+						csvsalida.write(matriz[i][x])
+					else:
+						csvsalida.write(',')
+						csvsalida.write(matriz[i][x])
+				csvsalida.write('\n')
+				#salida.writerow(matriz[i,:])
+
+			matriz = None
+		csvsalida.close()
+
 		
 def final(Archive):
 	
@@ -333,14 +396,24 @@ def final(Archive):
 
 
 
-folder = os.path.join('..', 'archives', 'out', 'unions', '')
+folder = os.path.join('..', 'data', 'out', 'unions', '')
 clear(folder)
-#unions('VP')
+
+print 'Write archives unions'
+print 'If Mobiles write, MOB'
+print 'If pavement write, VP'
+print 'If unpavement write, VNP'
+print 'If commercial write, COM'
+
+
+user = raw_input('Insert option: ')
+
+unions(user)
 #total('VP')
 
-unions('moviles')
+#unions('moviles')
 
-folder = os.path.join('..', 'archives', 'out', 'unions', '')
+folder = os.path.join('..', 'data', 'out', 'unions', '')
 lista = listaCSV(folder)
 for archiv in lista:
 	archive = folder + archiv
