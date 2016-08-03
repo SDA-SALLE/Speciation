@@ -401,6 +401,7 @@ clear(folder)
 
 print 'Write archives unions'
 print 'If Mobiles write, MOB'
+<<<<<<< HEAD
 print 'If pavement write, VP'
 print 'If unpavement write, VNP'
 print 'If commercial write, COM'
@@ -409,6 +410,12 @@ print 'If commercial write, COM'
 user = raw_input('Insert option: ')
 
 unions(user)
+=======
+
+
+user = raw_input('Insert option: ')
+#unions('VP')
+>>>>>>> origin/master
 #total('VP')
 
 #unions('moviles')
