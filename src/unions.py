@@ -32,8 +32,6 @@ def listaCSV(direccion):
 
 	return lstFilesEmissions
 
-
-
 def unions(identy):
 	if identy == 'VP':
 		listHabilPrincipal = []
@@ -196,6 +194,7 @@ def unions(identy):
 				csvsalida.write(',')
 				csvsalida.write(name)
 		csvsalida.write('\n')
+		
 		for lista in listNHabil:
 			archive = folder + lista
 			matriz = convertCSVMatriz (archive)
@@ -297,7 +296,104 @@ def unions(identy):
 			matriz = None
 		csvsalida.close()
 
+	elif identy == 'CAT':
+		listHabil = []
+		listNHabil = []
+
+		folder = os.path.join('..', 'data', 'in', 'unions', '')
+		listout = listaCSV(folder)
 		
+		for out in listout:
+
+			if 'ENH' in out or 'NHABIL' in out or '_NHabil' in out:
+				listNHabil.append(out)
+			elif 'EH' in out or 'HABIL' in out or '_Habil' in out:
+				listHabil.append(out)
+
+		foldersave = os.path.join('..', 'data', 'out', 'unions', '')
+		
+		csvsalida = open(foldersave + 'CAT_NHabil_Full.csv', 'w')
+		names = ['FID_Grilla', 'Type', 'Category', 'ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h']		
+		for name in names:
+			if name == names[0]:
+				csvsalida.write(name)
+			else:
+				csvsalida.write(',')
+				csvsalida.write(name)
+		csvsalida.write('\n')
+		
+		for lista in listNHabil:
+			archive = folder + lista
+			matriz = convertCSVMatriz (archive)
+			for i in range(1, matriz.shape[0]):
+				for x in range(0, matriz.shape[1]):
+					if x == 0:
+						csvsalida.write(matriz[i][x])
+					else:
+						csvsalida.write(',')
+						csvsalida.write(matriz[i][x])
+				csvsalida.write('\n')
+			matriz = None
+		csvsalida.close()
+
+		csvsalida = open(foldersave + 'CAT_Habil_Full.csv', 'w')
+		for name in names:
+			if name == names[0]:
+				csvsalida.write(name)
+			else:
+				csvsalida.write(',')
+				csvsalida.write(name)
+		csvsalida.write('\n')
+		for lista in listHabil:
+			archive = folder + lista
+			matriz = convertCSVMatriz (archive)
+			for i in range(1, matriz.shape[0]):
+				for x in range(0, matriz.shape[1]):
+					if x == 0:
+						csvsalida.write(matriz[i][x])
+					else:
+						csvsalida.write(',')
+						csvsalida.write(matriz[i][x])
+				csvsalida.write('\n')
+				#salida.writerow(matriz[i,:])
+
+			matriz = None
+		csvsalida.close()
+
+	elif identy == 'IND':
+		listHabil = []
+		listNHabil = []
+
+		folder = os.path.join('..', 'data', 'in', 'unions', '')
+		listout = listaCSV(folder)
+			
+		foldersave = os.path.join('..', 'data', 'out', 'unions', '')
+		
+		csvsalida = open(foldersave + 'IND_Full.csv', 'w')
+		names = ['ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'UNIT', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h', 'E24h']
+		
+		for name in names:
+			if name == names[0]:
+				csvsalida.write(name)
+			else:
+				csvsalida.write(',')
+				csvsalida.write(name)
+		csvsalida.write('\n')
+		
+		for lista in listout:
+			archive = folder + lista
+			matriz = convertCSVMatriz (archive)
+			for i in range(1, matriz.shape[0]):
+				for x in range(0, matriz.shape[1]):
+					if x == 0:
+						csvsalida.write(matriz[i][x])
+					else:
+						csvsalida.write(',')
+						csvsalida.write(matriz[i][x])
+				csvsalida.write('\n')
+			matriz = None
+		csvsalida.close()
+
 def final(Archive):
 	
 	data = {}
@@ -365,7 +461,7 @@ def final(Archive):
 	csvsalida = open(Archive, 'w')
 	names = ['ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'UNIT', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h', 'E24h']
 	for name in names:
-		if name == 'ROW':
+		if name == names[0]:
 			csvsalida.write(name)
 		else:
 			csvsalida.write(',')
@@ -394,38 +490,142 @@ def final(Archive):
 		csvsalida.write('\n')
 	csvsalida.close ()
 
+def finalCAT(Archive):
+	
+	data = {}
+	matriz = convertCSVMatriz(Archive)
+	head = matriz[0,:]
+	index = 0
+	
+	for value in head:
+		if value == 'FID_Grilla':
+			colFID = index
+		if value == 'Type':
+			colType = index
+		if value == 'Category':
+			colCAT = index
+		if value == 'ROW':
+			colROW = index
+		if value == 'COL':
+			colCOL = index
+		if value == 'LAT':
+			colLAT = index
+		if value == 'LON':
+			colLON = index
+		if value == 'POLNAME':
+			colPollname = index
+		index += 1
+	
+	#print matriz[0,colPollname+1:matriz.shape[0]]
+	for i in range(1, matriz.shape[0]):
+		keys = matriz[i][colROW] + matriz[i][colCOL] + matriz[i][colPollname] + matriz[i][colCAT]
+		
+		if data.get(keys) is None:
+			data[keys] = {}
+			data[keys]['hours'] = {}
+			data[keys]['GENERAL'] = {'FID_Grilla': [], 'Type': [], 'Category': [],'ROW': [], 'COL': [], 'LAT': [], 'LON': [], 'POLNAME': []}
 
+		
+		for hour in range(0, 25):
+			data[keys]['hours'][hour] = []
+
+	
+	for i in range(1, matriz.shape[0]):
+		keys = matriz[i][colROW] + matriz[i][colCOL] + matriz[i][colPollname] +  matriz[i][colCAT]
+		
+		if data[keys]['GENERAL']['ROW'] == []:
+			data[keys]['GENERAL']['FID_Grilla'].append(matriz[i][colFID])
+			data[keys]['GENERAL']['Type'].append(matriz[i][colType])
+			data[keys]['GENERAL']['Category'].append(matriz[i][colCAT])
+			data[keys]['GENERAL']['ROW'].append(matriz[i][colROW])
+			data[keys]['GENERAL']['COL'].append(matriz[i][colCOL])
+			data[keys]['GENERAL']['LAT'].append(matriz[i][colLAT])
+			data[keys]['GENERAL']['LON'].append(matriz[i][colLON])
+			data[keys]['GENERAL']['POLNAME'].append(matriz[i][colPollname])
+
+		hour = 0
+		for x in range(colPollname + 1, matriz.shape[1]):
+			data[keys]['hours'][hour].append(float(matriz[i][x]))
+			hour += 1
+
+	matriz = None
+	keys = data.keys()
+	for key in keys:
+		hours = data[key]['hours'].keys()
+		for hour in hours:
+			if hour == 'GENERAL':
+				pass
+			else:
+				suma = sum(data[key]['hours'][hour])
+				data[key]['hours'][hour] = []
+				data[key]['hours'][hour].append(suma)
+
+	
+	csvsalida = open(Archive, 'w')
+	names = ['FID_Grilla','Type','Category','ROW', 'COL', 'LAT', 'LON', 'POLNAME',  'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h']
+	for name in names:
+		if name == names[0]:
+			csvsalida.write(name)
+		else:
+			csvsalida.write(',')
+			csvsalida.write(name)
+	csvsalida.write('\n')
+
+	names = data.keys()
+
+	for key in names:
+		csvsalida.write(data[key]['GENERAL']['FID_Grilla'][0])
+		csvsalida.write(',')
+		csvsalida.write(data[key]['GENERAL']['Type'][0])
+		csvsalida.write(',')
+		csvsalida.write(data[key]['GENERAL']['Category'][0])
+		csvsalida.write(',')
+		csvsalida.write(data[key]['GENERAL']['ROW'][0])
+		csvsalida.write(',')
+		csvsalida.write(data[key]['GENERAL']['COL'][0])
+		csvsalida.write(',')
+		csvsalida.write(data[key]['GENERAL']['LAT'][0])
+		csvsalida.write(',')
+		csvsalida.write(data[key]['GENERAL']['LON'][0])
+		csvsalida.write(',')
+		csvsalida.write(data[key]['GENERAL']['POLNAME'][0])
+		#csvsalida.write(',')
+		#csvsalida.write(data[key]['GENERAL']['UNIT'][0])
+		#csvsalida.write(',')
+		hours = data[key]['hours'].keys()
+		for hour in hours:
+			csvsalida.write(',')
+			csvsalida.write(str(data[key]['hours'][hour][0]))
+		csvsalida.write('\n')
+	csvsalida.close ()
 
 folder = os.path.join('..', 'data', 'out', 'unions', '')
 clear(folder)
 
 print 'Write archives unions'
 print 'If Mobiles write, MOB'
-<<<<<<< HEAD
 print 'If pavement write, VP'
 print 'If unpavement write, VNP'
 print 'If commercial write, COM'
-
+print 'If Category write, CAT'
+print 'IF Industrial write, IND'
 
 user = raw_input('Insert option: ')
 
 unions(user)
-=======
 
+if user != 'IND':
+	folder = os.path.join('..', 'data', 'out', 'unions', '')
+	lista = listaCSV(folder)
 
-user = raw_input('Insert option: ')
-#unions('VP')
->>>>>>> origin/master
-#total('VP')
+	for archiv in lista:
+		
+		archive = folder + archiv
+		
+		if 'CAT' in archive:
+			finalCAT(archive)	
+		else:
+			final(archive)
 
-#unions('moviles')
-
-folder = os.path.join('..', 'data', 'out', 'unions', '')
-lista = listaCSV(folder)
-for archiv in lista:
-	archive = folder + archiv
-	final(archive)
-
-
-
-
+else:
+	print 'process, OK'
