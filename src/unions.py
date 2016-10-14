@@ -258,6 +258,7 @@ def unions(identy):
 				csvsalida.write(',')
 				csvsalida.write(name)
 		csvsalida.write('\n')
+		
 		for lista in listNHabil:
 			archive = folder + lista
 			matriz = convertCSVMatriz (archive)
@@ -313,7 +314,7 @@ def unions(identy):
 		foldersave = os.path.join('..', 'data', 'out', 'unions', '')
 		
 		csvsalida = open(foldersave + 'CAT_NHabil_Full.csv', 'w')
-		names = ['FID_Grilla', 'Type', 'Category', 'ROW', 'COL', 'LAT', 'LON', 'POLNAME', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h']		
+		names = ['FID_Grilla', 'Type', 'Category', 'COL', 'ROW', 'LAT', 'LON', 'POLNAME', 'E00h', 'E01h', 'E02h', 'E03h', 'E04h', 'E05h', 'E06h' ,'E07h', 'E08h', 'E09h', 'E10h', 'E11h', 'E12h', 'E13h', 'E14h', 'E15h', 'E16h', 'E17h', 'E18h', 'E19h', 'E20h', 'E21h', 'E22h', 'E23h']		
 		for name in names:
 			if name == names[0]:
 				csvsalida.write(name)
@@ -611,18 +612,16 @@ print 'If Category write, CAT'
 print 'IF Industrial write, IND'
 
 user = raw_input('Insert option: ')
-
 unions(user)
 
 if user != 'IND':
 	folder = os.path.join('..', 'data', 'out', 'unions', '')
 	lista = listaCSV(folder)
 
-	for archiv in lista:
-		
-		archive = folder + archiv
-		
-		if 'CAT' in archive:
+	for archive in lista:
+		archive = folder + archive
+		if 'cat' in archive or 'CAT' in archive:
+			print archiv
 			finalCAT(archive)	
 		else:
 			final(archive)
